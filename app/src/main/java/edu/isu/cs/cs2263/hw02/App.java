@@ -24,10 +24,13 @@ import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Vector;
+import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class App extends Application {
 
-    private Vector<Course> courses;
+    private @Getter Vector<Course> courses;
     private AppView currentView;
     private final Map<String, AppView> views;
     private BorderPane mainLayout;
@@ -126,9 +129,9 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public Vector<Course> getCourses() {
+    /*public Vector<Course> getCourses() {
         return courses;
-    }
+    }*/
 
     private void setView(String viewName) {
         mainLayout.getChildren().remove(currentView.getView());

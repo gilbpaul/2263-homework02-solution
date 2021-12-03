@@ -18,7 +18,9 @@ import javafx.scene.text.TextAlignment;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignR;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class CoursesFormView extends AppView {
 
     private TextField tfName;

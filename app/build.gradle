@@ -11,6 +11,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'jacoco'
+    id "io.freefair.lombok" version "6.3.0"
 }
 
 repositories {
@@ -20,6 +21,9 @@ repositories {
 }
 
 dependencies {
+    //implementation 'android.arch.work:work-runtime:1.0.1'
+    implementation 'org.projectlombok:lombok:1.18.20'
+
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
 
@@ -40,6 +44,20 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+
+    // mocking framework
+    testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation "org.mockito:mockito-junit-jupiter:3.+"
+
+    // project lombok
+    /*compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'*/
+
+    // logger
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
 }
 
 application {
@@ -58,8 +76,9 @@ javafx {
 }
 
 jacoco {
-    toolVersion = "0.8.6"
-    reportsDirectory = file("/Users/gilbpe/school/cs2263/homework/2263-homework02-solution/app/build/jacoco")
+    toolVersion = "0.8.7"
+    reportsDirectory = file("${buildDir}/jacoco")
+    //applyTo run
 }
 
 test {
@@ -69,11 +88,12 @@ test {
 
 jacocoTestReport {
     // tests are required to run first
+    group = "build"
     dependsOn test
     reports {
         xml.enabled false
         csv.enabled false
-        html.destination file ("/Users/gilbpe/school/cs2263/homework/2263-homework02-solution/app/build/jacocoHtml")
+        html.destination file ("${buildDir}/jacocoHtml")
     }
 }
 
@@ -82,9 +102,11 @@ jacocoTestCoverageVerification {
         rule {
             limit {
                 counter = 'LINE'
-                value = 'COVERDRATION'
-                minimum = 0.85
+                value = 'COVERDRATIO'
+                minimum = 0.0
             }
         }
     }
 }
+
+//check.dependsOn jacocoTestCoverageVerification
